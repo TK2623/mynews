@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +24,8 @@ use App\Http\Controllers\Admin\NewsController;
 
 // prefix:Route設定するとき引数で指定したURLの配下に反映させられる
 // admin配下のURLにfunctionの処理が反映される
-Route::controller(NewsController::class)->prefix('admin')->group(function(){
-    // /create にアクセスされるとNewsControllerのaddメソッドの処理を実行する
-    Route::get('news/create', 'add');
+Route::controller(NewsController::class)->prefix('admin')->group(function() {
+    Route::get('news/create', 'add')->middleware('auth');
 });
 
 // シンプルに書いたパターン
