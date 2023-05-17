@@ -28,6 +28,12 @@ Route::controller(NewsController::class)->prefix('admin')->group(function() {
     Route::get('news/create', 'add')->middleware('auth');
 });
 
+// PHP/Laravel 12 ユーザー認証を実装する 課題2
+Route::controller(ProfileController::class)->prefix('admin')->group(function() {
+    Route::get('profile/create', 'add')->middleware('auth');
+    Route::get('profile/edit', 'edit')->middleware('auth');
+});
+
 // シンプルに書いたパターン
 // Route::get('/admin/news/create',[NewsController::class,'add2']);
 
