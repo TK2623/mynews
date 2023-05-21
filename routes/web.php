@@ -24,15 +24,12 @@ use App\Http\Controllers\Admin\NewsController;
 
 // prefix:Route設定するとき引数で指定したURLの配下に反映させられる
 // admin配下のURLにfunctionの処理が反映される
-Route::controller(NewsController::class)->prefix('admin')->group(function() {
-    Route::get('news/create', 'add')->middleware('auth');
+Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('news/create', 'add')->name('news.add');
+    Route::post('news/create', 'create')->name('news.create');
 });
 
-// PHP/Laravel 12 ユーザー認証を実装する 課題2
-Route::controller(ProfileController::class)->prefix('admin')->group(function() {
-    Route::get('profile/create', 'add')->middleware('auth');
-    Route::get('profile/edit', 'edit')->middleware('auth');
-});
+
 
 // シンプルに書いたパターン
 // Route::get('/admin/news/create',[NewsController::class,'add2']);
@@ -50,7 +47,14 @@ Route::controller(AAAController::class)->group(function(){
 
 // PHP/Laravel 09 Routingについて理解する 課題4
 use App\Http\Controllers\Admin\ProfileController;
-Route::controller(ProfileController::class)->prefix('admin')->group(function(){
+// Route::controller(ProfileController::class)->prefix('admin')->group(function(){
+//     Route::get('profile/create', 'add');
+//     Route::get('profile/edit', 'edit');
+// });
+
+// PHP/Laravel 12 ユーザー認証を実装する 課題2
+// URLによっては認証したり、しない場合があるのでそれぞれに記述
+Route::controller(ProfileController::class)->prefix('admin')->middleware('auth')->group(function() {
     Route::get('profile/create', 'add');
     Route::get('profile/edit', 'edit');
 });
