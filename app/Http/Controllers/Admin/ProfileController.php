@@ -23,7 +23,7 @@ class ProfileController extends Controller
         $form = $request->all();
         
         // フォームから送信された_tokenを削除する
-        // unset($form['_token']);
+        unset($form['_token']);
         
         // データベースに保存する
         $profile->fill($form);

@@ -44,4 +44,27 @@ class NewsController extends Controller
         // admin/news/createにリダイレクトする
         return redirect('admin/news/create');
     }
+    
+    public function index(Request $request) {
+        
+        $cond_title = $request->cond_title;
+        
+        if ($cond_title != '') {
+            
+            // 検索されたら検索結果を取得する
+            // cond_titleと一致したレコードをとってくる
+            $posts = News::where('title', $cond_title)->get();
+            
+        } else {
+            
+            // それ以外は全てニュースを取得する
+            // News ModelからDBのnewsテーブルのレコードを全て取得する
+            $posts = News::all();
+            
+        }
+        
+        return view('admin.news.index', ['posts' => $posts, 'cond_title' => $cond_title]);
+        
+    }
+    
 }
