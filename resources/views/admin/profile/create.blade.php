@@ -14,7 +14,7 @@
                 
                 <h2>My プロフィール</h2>
                 
-                <form action="{{ route('admin.profile.update') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.profile.create') }}" method="post" enctype="multipart/form-data">
                     
                     @if (count($errors) > 0)
                         <ul>
@@ -68,7 +68,7 @@
                     </div>
                     
                     @csrf
-                    <input type="submit" class="btn btn-primary" value="更新">
+                    <input type="submit" class="btn btn-primary" value="新規作成">
                     
                 </form>
                 

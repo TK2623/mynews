@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Profile;
+use App\Models\History;
+
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -40,6 +43,7 @@ class ProfileController extends Controller
             abort(404);
         }
         
+        // $formの値を'form'という名前でviewに渡す。これをしないとviewで変数が定義されていないことなる。
         return view('admin.profile.edit', ['form' => $form]);
         
     }
@@ -51,7 +55,7 @@ class ProfileController extends Controller
         
         // Profile Modelからデータを取得する
         $profile = Profile::find($request->id);
-        
+        // dd($profile);
         // 送信されてきたフォームデータを格納する
         $form = $request->all();
         
@@ -61,7 +65,12 @@ class ProfileController extends Controller
         // 該当するデータを上書きして保存する
         $profile->fill($form)->save();
         
-        return redirect('admin/profile/edit');
+        $history = new History();
+        $history->id = $form->id;
+        $history->edited_at = Carbon::now();
+        $history->save();
+        
+        return redirect('admin/profile/create');
     }
     
 }

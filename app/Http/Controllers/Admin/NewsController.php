@@ -29,9 +29,14 @@ class NewsController extends Controller
         
         // フォームから画像が送信されたら、保存して、$news->image_path に画像のパスを保存する
         if (isset($form['image'])) {
+            
+            // file関数で画像ファイルのフルパスを取得する。store関数でファイル名だけを取り出す。ファイル名を$pathに入れる。
             $path = $request->file('image')->store('public/image');
+            // 画像のファイル名をimage_pathに入れる。
             $news->image_path = basename($path);
+            
         } else {
+            // 画像が送られなければimage_pathにnullを入れる。
             $news->image_path = null;
         }
         
@@ -66,6 +71,7 @@ class NewsController extends Controller
             
         }
         
+        // $postsの値を'posts'というキー名でviewに渡し、viewで使うことができる。同様に$cond_titleの値を'cond_title'でviewに渡す。
         return view('admin.news.index', ['posts' => $posts, 'cond_title' => $cond_title]);
         
     }
@@ -75,11 +81,12 @@ class NewsController extends Controller
         // News Modelからデータを取得する
         $news = News::find($request->id);
         
+        // News Modelにないidを指定すると404エラーを出す。
         if (empty($news)) {
             abort(404);
         }
         
-        // データを渡している
+        // viewにデータを渡している
         return view('admin.news.edit', ['news_form' => $news]);
         
     }
@@ -96,10 +103,10 @@ class NewsController extends Controller
         $news_form = $request->all();
         
         if ($request->remove == 'true') {
-            // 削除
+            // すでに登録されている画像を削除
             $news_form['image_path'] = null;
         } else if($request->file('image')) {
-            // 更新
+            // 画像を更新（登録の処理と同じ）
             $path = $request->file('image')->store('public/image');
             $news_form['image_path'] = basename($path);
         } else {
