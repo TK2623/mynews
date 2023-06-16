@@ -55,7 +55,7 @@ class ProfileController extends Controller
         
         // Profile Modelからデータを取得する
         $profile = Profile::find($request->id);
-        // dd($profile);
+        
         // 送信されてきたフォームデータを格納する
         $form = $request->all();
         
@@ -66,11 +66,11 @@ class ProfileController extends Controller
         $profile->fill($form)->save();
         
         $history = new History();
-        $history->id = $form->id;
-        $history->edited_at = Carbon::now();
+        $history->profile_id = $profile->profile_id;
+        $history->edited_at_profile = Carbon::now();
         $history->save();
         
-        return redirect('admin/profile/create');
+        return redirect('admin.profile.edit', ['form' => $form]);
     }
     
 }
