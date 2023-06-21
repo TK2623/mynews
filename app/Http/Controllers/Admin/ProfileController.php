@@ -35,6 +35,22 @@ class ProfileController extends Controller
         return redirect('admin/profile/create');
     }
     
+    public function index(Request $request) {
+        
+        $cond_name = $request->name;
+        
+        if ($cond_name != '') {
+            // 検索されたらその検索結果を表示する
+            $posts = Profile::where('title', $cond_name)->get();
+        } else {
+            // それ以外はすべての一覧を表示する
+            $post = Profile::all();
+        }
+        
+        return view('admin.profile.index',['posts' => $posts, 'cond_name' => $cond_name]);
+    }
+    
+    
     public function edit(Request $request) {
         
         $form = Profile::find($request->id);
@@ -67,11 +83,12 @@ class ProfileController extends Controller
         
         // インスタンス名＝呼び出すモデル名
         $history = new ProfileHistory();
+        // Profile Modelのカラム名とProfileHistory Modelのカラム名を意識する
         $history->profile_id = $profile->id;
         $history->edited_at_profile = Carbon::now();
         $history->save();
         
-        return redirect('admin.profile.edit', ['form' => $form]);
+        return redirect('admin.profile.create', ['form' => $form]);
     }
     
 }

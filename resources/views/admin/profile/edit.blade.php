@@ -67,13 +67,12 @@
                     <div class="form-group row">
                         
                         <div class="col-md-10">
-                                <input type="hidden" name="id" value="{{ $form->id }}">
-                                @csrf
-                                <input type="submit" class="btn btn-primary" value="更新">
-                            </div>
-                            
+                            {{-- フォームで送られたidをhidden属性で送信する（ユーザーに値を入力させずに送信する）--}}
+                            <input type="hidden" name="id" value="{{ $form->id }}">
+                            @csrf
+                            <input type="submit" class="btn btn-primary" value="更新">
                         </div>
-                    
+                        
                     </div>
                 
                 </form>
