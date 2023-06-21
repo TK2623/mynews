@@ -44,7 +44,7 @@ class ProfileController extends Controller
             $posts = Profile::where('title', $cond_name)->get();
         } else {
             // それ以外はすべての一覧を表示する
-            $post = Profile::all();
+            $posts = Profile::all();
         }
         
         return view('admin.profile.index',['posts' => $posts, 'cond_name' => $cond_name]);
@@ -88,7 +88,20 @@ class ProfileController extends Controller
         $history->edited_at_profile = Carbon::now();
         $history->save();
         
-        return redirect('admin.profile.create', ['form' => $form]);
+        // 編集画面をリダイレクト
+        return redirect('admin/profile/');
+    }
+    
+    public function delete(Request $request) {
+        
+        // 削除ボタンが押されたidを探す
+        $profile = Profile::find($request->id);
+        
+        // 削除する
+        $profile->delete();
+        
+        // 編集画面をリダイレクト
+        return redirect('admin/profile/');
     }
     
 }
