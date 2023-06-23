@@ -8,7 +8,7 @@ use App\Models\News;
 
 class NewsController extends Controller
 {
-    //
+    // Action
     public function index(Request $request) {
         
         // 全ての記事を投稿日時順に新しいほうから並べ替える

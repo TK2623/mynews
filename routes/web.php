@@ -86,3 +86,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 use App\Http\Controllers\NewsController as publicNewsController;
 Route::get('/', [PublicNewsController::class, 'index'])->name('news.index');
+
+use App\Http\Controllers\ProfileController as publicProfileController;
+Route::get('/profile', [PublicProfileController::class, 'index'])->name('Profile.index');
