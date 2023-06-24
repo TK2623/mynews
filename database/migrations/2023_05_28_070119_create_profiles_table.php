@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        //Schema::create('テーブル名',[Blueprintオブジェクトを受け取るクロージャ関数])
         Schema::create('profiles', function (Blueprint $table) {
             
             $table->id();

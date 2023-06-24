@@ -25,8 +25,23 @@ class ProfileController extends Controller
         $profile = new Profile;
         $form = $request->all();
         
+        // フォームから画像が送信されたら、保存して、$news->image_path に画像のパスを保存する
+        if (isset($form['profile-image'])) {
+            
+            // file関数で画像ファイルのフルパスを取得する。store関数でファイル名だけを取り出す。ファイル名を$pathに入れる。
+            $path = $request->file('profile-image')->store('public/image');
+            // 画像のファイル名をimage_pathに入れる。
+            $profile->image_path = basename($path);
+            
+        } else {
+            // 画像が送られなければimage_pathにnullを入れる。
+            $profile->image_path = null;
+        }
+        
         // フォームから送信された_tokenを削除する
         unset($form['_token']);
+        // フォームから送信されたimageを削除する
+        unset($form['profile-image']);
         
         // データベースに保存する
         $profile->fill($form);
@@ -75,6 +90,27 @@ class ProfileController extends Controller
         // 送信されてきたフォームデータを格納する
         $form = $request->all();
         
+        // 「画像を削除」にチェックが入っていた場合
+        if ($request->remove == 'true') {
+            
+            // すでに登録されている画像を削除
+            $form['image_path'] = null;
+            
+        // 画像登録なし→新たに画像が登録された場合
+        } else if($request->file('profile-image')) {
+            
+            // 画像を更新（登録の処理と同じ）
+            $path = $request->file('profile-image')->store('public/image');
+            $form['image_path'] = basename($path);
+        
+        // 画像変更なし
+        } else {
+        
+            // 変更なし
+            $form['image_path'] = $profile->image_path;
+        }
+        
+        unset($form['profile-image']);
         unset($form['remove']);
         unset($form['_token']);
         
