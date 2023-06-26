@@ -1,0 +1,30 @@
+body {
+  color: #000;
+}
+
+.navbar-laravel {
+  background-color: #000;
+}
+
+.header .logo {
+  width: 120px;
+  height: 82px;
+}
+
+.posts .post .date {
+  font-size: 0.6em;
+  color: #999999;
+}
+.posts .post .title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.posts .post .body {
+  font-size: 0.8em;
+}
+.posts .post .image-position .image img {
+  width: 70px;
+  border-radius: 50%;
+  background-color: black;
+  margin-top: 10px;
+}

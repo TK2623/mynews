@@ -1,14 +1,39 @@
-@extends('layouts.front')
+@extends('layouts.frontprofile')
 
 @section('content')
     <div class="container">
         <hr color="#c0c0c0">
+        
+        <!-- データがあればtrue -->
+        {{--@if (!is_null($posts->image_path))--}}
+            
+        <!--    <div class="image">-->
+                    
+        <!--        {{--secure_asset()「publicディレクトリ」のパスを返す関数。「.」は文字列結合する演算子。ここで画像のフルパスを指定している。--}}-->
+        {{--        <img src="{{ secure_asset('storage/image/' . $posts->image_path) }}">-->
+                    
+                
+        {{--    </div>--}}
+            
+        {{--@endif--}}
+        
         <div class="row">
             <div class="posts col-md-8 mx-auto mt-3">
                 
                 @foreach($posts as $post)
                     <div class="post">
+                        
                         <div class="row">
+                            
+                            <div class="image-position">                                
+                                <div class="image">
+                                    
+                                    {{--secure_asset()「publicディレクトリ」のパスを返す関数。「.」は文字列結合する演算子。ここで画像のフルパスを指定している。--}}
+                                    <img src="{{ secure_asset('storage/image/' . $post->image_path) }}">
+                                    
+                                </div>
+                            </div>
+                            
                             <div class="text col-md-6">
                                 
                                 <div class="date">
