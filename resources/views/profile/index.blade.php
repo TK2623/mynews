@@ -4,19 +4,6 @@
     <div class="container">
         <hr color="#c0c0c0">
         
-        <!-- データがあればtrue -->
-        {{--@if (!is_null($posts->image_path))--}}
-            
-        <!--    <div class="image">-->
-                    
-        <!--        {{--secure_asset()「publicディレクトリ」のパスを返す関数。「.」は文字列結合する演算子。ここで画像のフルパスを指定している。--}}-->
-        {{--        <img src="{{ secure_asset('storage/image/' . $posts->image_path) }}">-->
-                    
-                
-        {{--    </div>--}}
-            
-        {{--@endif--}}
-        
         <div class="row">
             <div class="posts col-md-8 mx-auto mt-3">
                 
@@ -28,9 +15,16 @@
                             <div class="image-position">                                
                                 <div class="image">
                                     
-                                    {{--secure_asset()「publicディレクトリ」のパスを返す関数。「.」は文字列結合する演算子。ここで画像のフルパスを指定している。--}}
-                                    <img src="{{ secure_asset('storage/image/' . $post->image_path) }}">
-                                    
+                                    <!--画像がセットされているか確認-->
+                                    @if(!isset($post->image_path))
+                                        <!--セットされていない場合、はてなの画像を出す-->
+                                        <img src="{{ secure_asset('storage/image/' . 'aiJXnMOfrfnneKvRtRJ3Xlcip2kLH49laxOSDODM.png') }}">
+                                    @else
+                                        <!--画像がセットされている場合-->
+                                        {{--secure_asset()「publicディレクトリ」のパスを返す関数。「.」は文字列結合する演算子。ここで画像のフルパスを指定している。--}}
+                                        <img src="{{ secure_asset('storage/image/' . $post->image_path) }}">
+                                    @endif
+                                        
                                 </div>
                             </div>
                             
