@@ -10,7 +10,6 @@ class NewsController extends Controller
 {
     // Action
     public function index(Request $request) {
-        
         // 全ての記事を投稿日時順に新しいほうから並べ替える
         $posts = News::all()->sortByDesc('updated_at');
         

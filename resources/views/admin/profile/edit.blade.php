@@ -14,7 +14,7 @@
                 
                 <h2>Myニュース編集画面</h2>
                 
-                <form action="{{ route('admin.profile.update') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.profile.update') }}" method="post" enctype='multipart/form-data'>
                     
                     @if (count($errors) > 0)
                         <ul>
@@ -70,7 +70,7 @@
                         
                         <div class="col-md-10">
                             
-                            <input type="file" class="form-control-file" name="profile-image">
+                            <input type="file" class="form-control-file" name="profileimage">
                             
                             <div class="form-text text-info">
                                 設定中: {{ $form->image_path }}

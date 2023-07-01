@@ -26,12 +26,29 @@ class ProfileController extends Controller
         $form = $request->all();
         
         // フォームから画像が送信されたら、保存して、$news->image_path に画像のパスを保存する
-        if (isset($form['profile-image'])) {
+        if (isset($form['profileimage'])) {
             
-            // file関数で画像ファイルのフルパスを取得する。store関数でファイル名だけを取り出す。ファイル名を$pathに入れる。
-            $path = $request->file('profile-image')->store('public/image');
-            // 画像のファイル名をimage_pathに入れる。
-            $profile->image_path = basename($path);
+            // $request->formで設置したname属性名
+            // getClientOriginalNameでオリジナルの名前が取れる。
+            $filename = $request->profileimage->getClientOriginalName();
+            
+            if ($filename == "mark_question.png") {
+                
+                // 画像を保存して、そのパスを$pathに保存　第一引数に格納したいパスを指定。第三引数に'public'を指定(storage/app/public配下に指定される)
+                $path = $request->profileimage->storeAs('',$filename,'public');
+                
+                // ファイル名を入れる
+                $profile->image_path = $path;
+                
+            } else {
+            
+                // file関数で画像ファイルのフルパスを取得する。store関数でファイル名だけを取り出す。ファイル名を$pathに入れる。
+                $path = $request->file('profileimage')->store('public/image');
+                
+                // 画像のファイル名をimage_pathに入れる。
+                $profile->image_path = basename($path);
+            
+            }
             
         } else {
             // 画像が送られなければimage_pathにnullを入れる。
@@ -41,7 +58,7 @@ class ProfileController extends Controller
         // フォームから送信された_tokenを削除する
         unset($form['_token']);
         // フォームから送信されたimageを削除する
-        unset($form['profile-image']);
+        unset($form['profileimage']);
         
         // データベースに保存する
         $profile->fill($form);
@@ -97,10 +114,10 @@ class ProfileController extends Controller
             $form['image_path'] = null;
             
         // 画像登録なし→新たに画像が登録された場合
-        } else if($request->file('profile-image')) {
+        } else if($request->file('profileimage')) {
             
             // 画像を更新（登録の処理と同じ）
-            $path = $request->file('profile-image')->store('public/image');
+            $path = $request->file('profileimage')->store('public/image');
             $form['image_path'] = basename($path);
         
         // 画像変更なし
@@ -110,7 +127,7 @@ class ProfileController extends Controller
             $form['image_path'] = $profile->image_path;
         }
         
-        unset($form['profile-image']);
+        unset($form['profileimage']);
         unset($form['remove']);
         unset($form['_token']);
         

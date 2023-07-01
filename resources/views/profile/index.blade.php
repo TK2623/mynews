@@ -18,7 +18,7 @@
                                     <!--画像がセットされているか確認-->
                                     @if(!isset($post->image_path))
                                         <!--セットされていない場合、はてなの画像を出す-->
-                                        <img src="{{ secure_asset('/' . $question[0]) }}">
+                                        <img src="{{ secure_asset('storage/image/' . 'mark_question.png') }}">
                                     @else
                                         <!--画像がセットされている場合-->
                                         {{--secure_asset()「publicディレクトリ」のパスを返す関数。「.」は文字列結合する演算子。ここで画像のフルパスを指定している。--}}
