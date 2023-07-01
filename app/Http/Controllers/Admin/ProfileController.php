@@ -35,7 +35,7 @@ class ProfileController extends Controller
             if ($filename == "mark_question.png") {
                 
                 // 画像を保存して、そのパスを$pathに保存　第一引数に格納したいパスを指定。第三引数に'public'を指定(storage/app/public配下に指定される)
-                $path = $request->profileimage->storeAs('',$filename,'public');
+                $path = $request->profileimage->storeAs('/image',$filename,'public');
                 
                 // ファイル名を入れる
                 $profile->image_path = $path;
