@@ -28,3 +28,7 @@ body {
   background-color: black;
   margin-top: 10px;
 }
+
+.row > * {
+  width: auto;
+}

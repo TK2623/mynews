@@ -48,6 +48,14 @@ Route::controller(AAAController::class)->group(function(){
 // 課題3 シンプルに書いたパターン
 // Route::get('/XXX',[AAAController::class,'bbb']);
 
+// // 管理者ログイン画面
+// use App\Http\Controllers\Admin;
+// Route::controller(LoginController::class)->prefix('admin')->name('admin.')->group(function() {
+//     Route::get('profile/admin', 'admin')->name('login.admin');
+//     Route::post('profile/admin', 'login')->name('login.login');
+//     Route::get('profile/logout', 'logout')->name('login.logout');
+// });
+
 
 // PHP/Laravel 09 Routingについて理解する 課題4
 use App\Http\Controllers\Admin\ProfileController;
@@ -84,8 +92,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// 一般ユーザー画面
 use App\Http\Controllers\NewsController as publicNewsController;
 Route::get('/', [PublicNewsController::class, 'index'])->name('news.index');
 
+// 一般ユーザー画面
 use App\Http\Controllers\ProfileController as publicProfileController;
 Route::get('/profile', [PublicProfileController::class, 'index'])->name('Profile.index');
+

@@ -40,6 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        
+        // 管理者認証
+        'administrators' => [
+            'driver' => 'session',
+            'provider' => 'administrators',
+        ],
+        // 一般ユーザー認証
+        'members' => [
+            'driver' => 'session',
+            'provider' => 'members',
+        ],
+        
     ],
 
     /*
@@ -63,6 +75,17 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        
+        // 管理者認証
+        'administrators' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Administrator::class,
+        ],
+        // 一般ユーザー認証
+        'members' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Member::class,
         ],
 
         // 'users' => [
